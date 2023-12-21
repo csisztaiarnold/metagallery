@@ -1,0 +1,32 @@
+{% extends standalone == true ? "blank.twig" : "base.twig" %}
+
+{% block content %}
+    <h2 class="text-center text-3xl font-primary pt-0 pb-2">
+        {{ gallery_title }}
+        <div class="text-center text-xl font-primary pb-2">{{ date }}</div>
+    </h2>
+    <div class="gap-3 columns-1 md:columns-2 lg:columns-3 pl-3 pr-3 pb-3">
+        {% for image in images %}
+            {% include 'components/thumbnail.twig' with {'gallery_title': gallery_title, 'date': date, 'folder': folder ? folder :  image.gallery, 'filename': image.filename, 'ratio': image.ratio, 'comment': image.comment} %}
+        {% endfor %}
+    </div>
+    {% if number_of_images_found == 0 and search == true %}
+        <div class="text-center">No results, sorry :(</div>
+    {% endif %}
+    <script>
+        {% if standalone == true %}
+            {% if search != true %}
+                document.getElementById('gallery_select').value = '{{ folder }}';
+                window.history.pushState(null, null, location.href + '/{{ folder }}');
+                window.addEventListener('popstate', function(event) {
+                    window.location.assign("/");
+                });
+            {% endif %}
+        {% endif %}
+        {% if standalone != true %}
+            document.title = '{{ gallery_title }}';
+        {% endif %}
+    </script>
+    <script src="/js/main.js?rnd={{ rnd }}"></script>
+{% endblock %}
+

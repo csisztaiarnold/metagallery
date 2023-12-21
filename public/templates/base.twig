@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{ gallery_title ?? main_logo }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/dist/style.css?rnd={{ rnd }}" rel="stylesheet">
+    <script src="/js/vendor/htmx.min.js?rnd={{ rnd }}"></script>
+</head>
+<body class="from-slate-300 via-slate-200 to-slate-100 bg-slate-200 relative">
+<div id="fullscreen-image-container"
+     class="fixed flex z-20 w-0 h-0 justify-center items-center bg-gray-900 bg-opacity-70 bg-center bg-no-repeat bg-contain">
+</div>
+<main>
+    <h1 class="text-center text-6xl md:text-8xl font-logo text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-pink-600 pt-8 pb-10 pl-5 pr-5">
+        <a href="/" title="{{ main_logo }}">{{ main_logo }}</a>
+    </h1>
+    <div class="text-center pt-7 font-primary font-light pl-1 pr-1">
+        {{ main_description|raw }}
+    </div>
+    <div class="p-5">
+        <input id="search" name="search" placeholder="Search for an image by gallery name or caption" hx-trigger="keyup"
+               hx-post="/search" hx-target="#gallery"
+               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded mb-5 w-full md:w-6/12 ml-auto mr-auto"/>
+        </input>
+        <form>
+            <select id="gallery_select" name="gallery" hx-post="/imagelist" hx-target="#gallery" hx-push-url="true"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 rounded w-full md:w-6/12 ml-auto mr-auto">
+                <option value="">Select a gallery</option>
+                {% for gallery in galleries %}
+                    <option value="{{ gallery.folder }}"
+                            {% if gallery.folder == folder %}selected{% endif %}>{{ gallery.date }}{% if(gallery.date) %} - {% endif %}{{ gallery.title|e }}</option>
+                {% endfor %}
+            </select>
+        </form>
+    </div>
+    <div id="gallery">
+        {% block content %}{% endblock %}
+    </div>
+</main>
+</body>
+</html>

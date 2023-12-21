@@ -1,0 +1,12 @@
+{% extends standalone == true ? "blank.twig" : "base.twig" %}
+
+{% block content %}
+    <div class="columns-1 md:columns-2 lg:columns-3 gap-3 pl-3 pr-3 pb-3">
+        {% for gallery in galleries %}
+            {% for image in gallery.images|slice(0, 1) %}
+                {% include 'components/thumbnail.twig' with {'is_gallery': true, 'gallery_title': gallery.title, 'date': gallery.date, 'folder': gallery.folder, 'filename': image.filename, 'ratio': image.ratio, 'comment': image.comment} %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    <script src="/js/main.js?rnd={{ rnd }}"></script>
+{% endblock %}
