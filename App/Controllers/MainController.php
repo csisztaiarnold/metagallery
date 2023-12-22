@@ -48,14 +48,17 @@ class MainController extends Controller
         ]);
     }
 
-    public function searchImage() {
-
+    public function searchImage()
+    {
         $galleries = $this->file->readGalleries();
         $found_image_array = [];
         $index = 0;
-        foreach($this->file->readGalleries() as $gallery_item) {
-            foreach($gallery_item['images'] as $image) {
-                if (str_contains(strtolower($image['comment'] ? $image['comment'] : ''), strtolower($_POST['search'])) || str_contains(strtolower($gallery_item['folder']), strtolower($_POST['search'])) ) {
+        foreach ($this->file->readGalleries() as $gallery_item) {
+            foreach ($gallery_item['images'] as $image) {
+                if (str_contains(
+                        strtolower($image['comment'] ? $image['comment'] : ''),
+                        strtolower($_POST['search'])
+                    ) || str_contains(strtolower($gallery_item['folder']), strtolower($_POST['search']))) {
                     $found_image_array[$index] = $image;
                     $found_image_array[$index]['gallery'] = $gallery_item['folder'];
                     $index++;
@@ -63,7 +66,7 @@ class MainController extends Controller
             }
         }
 
-        if(empty($_POST['search'])) {
+        if (empty($_POST['search'])) {
             View::make('index.twig', [
                 'rnd' => rand(0, 9999999),
                 'galleries' => $this->file->readGalleries(),

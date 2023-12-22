@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
-use App\Controllers\ImageController;
 use App\Services\IPTC;
 use Core\Controller;
 use Exception;
@@ -51,7 +50,7 @@ class FileController extends Controller
                     $gallery_title = $this->readableGalleryName($folder);
                     $date = $this->readableDate($folder);
                     // Is the year 9999? Then we won't store the date info.
-                    if(explode('.', explode('_', $folder)[0])[0] === '9999') {
+                    if (explode('.', explode('_', $folder)[0])[0] === '9999') {
                         $date = '';
                     }
                     $folder_array[] = [
@@ -89,7 +88,7 @@ class FileController extends Controller
             foreach ($images as $image) {
                 if ($image !== 'thumbs') {
                     $image_path = $gallery_path . '/' . $folder . '/' . $image;
-                    if(exif_imagetype($image_path) === IMAGETYPE_JPEG) {
+                    if (exif_imagetype($image_path) === IMAGETYPE_JPEG) {
                         [$width, $height] = getimagesize($image_path);
                         $iptc = new Iptc($gallery_path . '/' . $folder . '/' . $image);
                         $caption = $iptc->fetch(Iptc::CAPTION);
@@ -128,7 +127,7 @@ class FileController extends Controller
     public function readableDate(string $folder): string
     {
         $exploded_folder = explode('_', $folder);
-        if(explode('.', $exploded_folder[0])[0] === '9999') {
+        if (explode('.', $exploded_folder[0])[0] === '9999') {
             return '';
         }
         return trim(str_replace('.', '. ', $exploded_folder[0])) . '.';
