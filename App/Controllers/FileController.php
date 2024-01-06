@@ -44,7 +44,7 @@ class FileController extends Controller
         $folder_array = [];
         $folders = preg_grep('/^([^.])/', scandir(__DIR__ . $this->path_to_galleries, SCANDIR_SORT_DESCENDING));
         foreach ($folders as $folder) {
-            if ($folder !== 'thumbs') {
+            if ($folder !== 'thumbs' && $folders !== 'mediums') {
                 // Is the date in correct format?
                 if (preg_match("/^[0-9]{4}.(0[1-9]|1[0-2]).(0[1-9]|[1-2][0-9]|3[0-1])$/", explode('_', $folder)[0])) {
                     $gallery_title = $this->readableGalleryName($folder);
@@ -86,13 +86,14 @@ class FileController extends Controller
                 )
             );
             foreach ($images as $image) {
-                if ($image !== 'thumbs') {
+                if ($image !== 'thumbs' && $image !== 'mediums') {
                     $image_path = $gallery_path . '/' . $folder . '/' . $image;
                     if (exif_imagetype($image_path) === IMAGETYPE_JPEG) {
                         [$width, $height] = getimagesize($image_path);
                         $iptc = new Iptc($gallery_path . '/' . $folder . '/' . $image);
                         $caption = $iptc->fetch(Iptc::CAPTION);
-                        $this->image->createThumbnailIfDoesntExists($folder, $image, 700, 1000);
+                        $this->image->createThumbnailIfDoesntExists($folder, $image, 700, 1000, 'thumbs');
+                        $this->image->createThumbnailIfDoesntExists($folder, $image, 1200, 1600, 'mediums');
                         $image_array[] = [
                             'filename' => $image,
                             'gallery_name' => $this->readableGalleryName($folder),

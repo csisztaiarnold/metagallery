@@ -25,11 +25,13 @@ class ImageController extends Controller
      * @param string $filename
      * @param int    $maxwidth
      * @param int    $maxheight
+     * @param string $thumbfolder
+     * @param bool   $rewrite
      * @return void
      */
-    public function createThumbnailIfDoesntExists(string $folder, string $filename, int $maxwidth, int $maxheight): void
+    public function createThumbnailIfDoesntExists(string $folder, string $filename, int $maxwidth, int $maxheight, string $thumbfolder = '', bool $rewrite = false): void
     {
-        $thumbs_folder = __DIR__ . $this->path_to_galleries . '/' . $folder . '/thumbs';
+        $thumbs_folder = __DIR__ . $this->path_to_galleries . '/' . $folder . '/' . $thumbfolder;
         if (!file_exists($thumbs_folder . '/' . $filename)) {
             if (!is_dir($thumbs_folder)) {
                 mkdir($thumbs_folder, 0755, true);

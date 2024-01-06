@@ -1,6 +1,6 @@
 <form>
     <div class="flex flex-col mb-3 {% if is_gallery != true %}thumbnail-image cursor-zoom-in{% else %}cursor-pointer{% endif %}"
-         {% if is_gallery != true %}data-fullsize="/galleries/{{ folder }}/{{ filename }}" data-caption="{{ comment }}"{% else %}hx-post="/imagelist" hx-target="#gallery" hx-push-url="true" hx-swap="innerHTML"{% endif %}>
+         {% if is_gallery != true %}data-fullsize="/galleries/{{ folder }}/mediums/{{ filename }}" data-caption="{{ comment }}"{% else %}hx-post="/imagelist" hx-target="#gallery" hx-push-url="true" hx-swap="innerHTML"{% endif %}>
         <div class="relative">
             {% if is_gallery != true %}<a href="/galleries/{{ folder }}/{{ filename }}" download="/galleries/{{ folder }}/{{ filename }}" class="download-icon absolute m-auto bottom-3 right-3  z-10"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><path d="M12 3a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4a1 1 0 1 1 1.414-1.414L11 13.586V4a1 1 0 0 1 1-1Z" fill="#ffffff"/><path d="M6 17a1 1 0 1 0-2 0v.6C4 19.482 5.518 21 7.4 21h9.2c1.882 0 3.4-1.518 3.4-3.4V17a1 1 0 1 0-2 0v.6c0 .778-.622 1.4-1.4 1.4H7.4c-.778 0-1.4-.622-1.4-1.4V17Z" fill="#ffffff"/></svg></a>{% endif %}
             <img src="/galleries/{{ folder }}/thumbs/{{ filename }}" loading="lazy" class="rounded aspect-{{ ratio }}">

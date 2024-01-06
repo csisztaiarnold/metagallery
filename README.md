@@ -1,6 +1,6 @@
 # Meta Gallery
 
-A very simple and blazing fast gallery based on htmx, Tailwind, PHP, filesystem and IPTC Photo Metadata. Doesn't require a database.
+A minimalistic and blazing fast gallery based on htmx, Tailwind, PHP, filesystem and IPTC Photo Metadata. Doesn't require a database.
 
 ## Why?
 

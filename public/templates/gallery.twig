@@ -14,6 +14,7 @@
         <div class="text-center">No results, sorry :(</div>
     {% endif %}
     <script>
+        window.scrollTo({top: 0});
         {% if standalone == true %}
             {% if search != true %}
                 document.getElementById('gallery_select').value = '{{ folder }}';
@@ -23,7 +24,7 @@
                 });
             {% endif %}
         {% endif %}
-        {% if standalone != true %}
+        {% if standalone == true %}
             document.title = '{{ gallery_title }}';
         {% endif %}
     </script>
