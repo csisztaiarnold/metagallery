@@ -2,6 +2,8 @@
 
 A minimalistic and blazing fast gallery based on htmx, Tailwind, PHP, filesystem and IPTC Photo Metadata. Doesn't require a database.
 
+Check out a working version here: https://memories.jailbird.hu/
+
 ## Why?
 
 Since I have accumulated a lot of photos in the last few years, I was really in a need for a fast, easily searchable, no-nonsense, straightforward online image gallery without all the bells and whistles. Since I couldn't find any, I have decided to make one on my own, specifically tailored for all my needs.
